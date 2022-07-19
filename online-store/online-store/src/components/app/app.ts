@@ -5,6 +5,8 @@ import Header from "../../html-components/header/header";
 import Main from "../../html-components/main/main";
 import FilterSettings from "../filters/filterSettings";
 import Filters from "../../html-components/filters/filters";
+import { LocalStorage, localStorageKeys } from "../../utils/localstorage";
+import { goods } from "../../constats/goods";
 
 export default class App {
   private static container: HTMLElement = document.body;
@@ -14,6 +16,7 @@ export default class App {
   winecards: WineCards;
   filterSettings: FilterSettings;
   constructor() {
+  
     this.cartsettings = new CartSettings();
     this.winecards = new WineCards();
     this.filterSettings = new FilterSettings();
@@ -22,6 +25,9 @@ export default class App {
 
   }
   start(data: WineDetails[]) {
+    if (localStorage.getItem('sorted')) {
+      data = LocalStorage.getLocalStorage(localStorageKeys.sorted) || data;
+    };
     App.container.append(this.header.render());
     App.container.append(this.main.render());
     this.winecards.render(data);
@@ -30,24 +36,14 @@ export default class App {
     const countryFilters = document.querySelector('.country-filter')
     const filters = document.querySelector('#filters');
     colorFilters!.addEventListener('input', event => {
-      if(this.filterSettings.filterArr.length === 0 ){
         this.filterSettings.filterByColor(data);
         this.winecards.render(this.filterSettings.filtered);
-      }
-      else{
-        this.filterSettings.filterByColor(this.filterSettings.filterArr);
-        this.winecards.render(this.filterSettings.filtered);
-      }
+   
       })
       countryFilters!.addEventListener('input', event => {
-        if(this.filterSettings.filterArr.length === 0 ){
           this.filterSettings.filterByCountry(data);
           this.winecards.render(this.filterSettings.filtered);
-        }
-        else{
-          this.filterSettings.filterByCountry(this.filterSettings.filterArr);
-          this.winecards.render(this.filterSettings.filtered);
-        }
+   
         })
       document
       .querySelector('.reset-filters')!
@@ -58,7 +54,9 @@ export default class App {
       })
       document.addEventListener('click', event => {
         if ((<HTMLElement>event.target)!.classList.contains('cart__add')) {
-          let articul = Number((<HTMLElement>event.target)!.dataset['articul']);
+          let articul = Number((<HTMLElement>event.target)!.dataset['articul'])!;
+          console.log(articul)
+          console.log(event.target)
           if (this.cartsettings.totalItems < 20 ) {
             this.cartsettings.cartAdd(data, articul);
             this.cartsettings.render();
@@ -98,6 +96,23 @@ export default class App {
       .querySelector('.close-popup')!
       .addEventListener('click', event => {
         this.cartsettings.cartClose();
+      })
+      document.
+      querySelector('.select')!.addEventListener('change', event => {
+        if((<HTMLOptionElement>event.target)!.value === 'ByPriceUp'){
+          this.filterSettings.sortPriceUp(data);
+          this.winecards.render(this.filterSettings.sorted)
+        }
+          if((<HTMLOptionElement>event.target)!.value === 'ByPriceDown'){
+          this.filterSettings.sortPriceDown(data);
+          this.winecards.render(this.filterSettings.sorted)
+        }
+      })
+
+      document
+      .querySelector('.reset')!.addEventListener('click', event => {
+        this.filterSettings.resetAll();
+        this.winecards.render(data);
       })
   }
 }

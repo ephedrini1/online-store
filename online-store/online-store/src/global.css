@@ -31,6 +31,18 @@ body {
   background-size: cover;
   position: relative;
 }
+
+button {
+  background-color: var(--gold);
+  border: var(--gold);
+  color: var(--background);
+  text-shadow: 2px 2px 10px var(--background);
+  box-shadow: 10px 10px 20px var(--background);
+  border-radius: 5px;
+  padding: 1em;
+  cursor: pointer;
+  transition: 0.2s;
+}
   .header {
     grid-area: header;
     height: 50px;

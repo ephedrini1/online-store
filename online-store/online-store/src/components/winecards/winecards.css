@@ -49,6 +49,11 @@
   font-size: 1rem;
 }
 
+.inCart .winecards__face,
+.inCart .winecards__back {
+  box-shadow: 0 0 12px 0 var(--red);
+}
+
 .winecards__back{
   background: var(--background);
   color: var(--gold);
@@ -69,6 +74,8 @@
             backface-visibility: hidden;
     border-radius: 10px;
 }
+
+
 
 .winecards__item .winecards__face,
 .winecards__item .winecards__back{
@@ -160,6 +167,7 @@ z-index: 3;
   padding: 1em;
   cursor: pointer;
   transition: 0.2s;
+  margin-top: 2em;
 }
 
 .cart__btn:hover,

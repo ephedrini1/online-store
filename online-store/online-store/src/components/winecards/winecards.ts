@@ -7,6 +7,9 @@ class WineCards {
     if (localStorage.getItem('goods')) {
       data = LocalStorage.getLocalStorage(localStorageKeys.goods) || data;
     };
+    if (localStorage.getItem('sorted')) {
+      data = LocalStorage.getLocalStorage(localStorageKeys.sorted) || data;
+    };
     const wines = data;
     const fragment = document.createDocumentFragment();
     const wineCardTemp = document.querySelector('#winecardsItemTemp') as HTMLTemplateElement;
@@ -31,6 +34,14 @@ class WineCards {
         (wineCard.querySelector('.winecards__item') as HTMLElement)!.style.opacity = '0.5';
         (wineCard.querySelector('.winecards__face-count'))!.textContent = 'Нет в наличии';
         (wineCard.querySelector('.winecards__face-price'))!.textContent = '';
+      }
+
+      if(item.inCart > 0) {
+        (wineCard.querySelector('.winecards__item') as HTMLElement)!.classList.add('inCart');
+      }
+      else{
+        (wineCard.querySelector('.winecards__item') as HTMLElement)!.classList.remove('inCart');
+
       }
       (wineCard.querySelector('.cart__add'))!.setAttribute('data-articul', `${idx}`)
       fragment.append(wineCard);

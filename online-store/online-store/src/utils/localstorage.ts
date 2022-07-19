@@ -6,6 +6,7 @@ const enum localStorageKeys {
   goods  = 'goods',
   totalItemsInCart = 'totalItemsInCart',
   filterArr = 'filterArr',
+  sorted = 'sorted',
 }
 
 class LocalStorage {

@@ -11,16 +11,17 @@ export class CartSettings {
   }
 
   cartAdd(data: WineDetails[], articul: number) {
-
+         console.log(articul)
         if (localStorage.getItem('cart')) {
           this.cart = LocalStorage.getLocalStorage(localStorageKeys.cart) || '';
         };
         if (localStorage.getItem('goods')) {
           data = LocalStorage.getLocalStorage(localStorageKeys.goods) || data;
         };
-      
+      console.log(this.cart)
         console.log(articul);
         const index = this.cart.findIndex(elem => elem.id === articul);
+        console.log(index);
         if(index === -1) {
           data[articul]['count']--;
           data[articul]['inCart']++;
@@ -67,6 +68,7 @@ export class CartSettings {
           console.log('data count ',data[articul]['count'])
           console.log('cart inCart ',this.cart[index]['inCart'])
           console.log('data inCart ',data[articul]['inCart'])
+        
         } 
         LocalStorage.setLocalStorage(localStorageKeys.cart, this.cart)
         LocalStorage.setLocalStorage(localStorageKeys.goods, data)
@@ -103,7 +105,6 @@ export class CartSettings {
         
           fragment.append(cartItem);
         })  
-        console.log(this.totalItems);
         document.querySelector('.cart__products')!.textContent = `${this.totalItems}`
   
         document.querySelector('.cart-popup__container')!.innerHTML = '';
