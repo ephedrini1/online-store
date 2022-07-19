@@ -1,0 +1,176 @@
+:root {
+  --background: #140a0a;
+  --red: #d60000;
+  --gold: #fdc854;
+ }
+
+ .winecards{
+  width: 90%;
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+.winecards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-column-gap: 3em;
+  grid-row-gap: 3em;
+}
+
+.winecards__item {
+  text-align: center;
+  width: 20em;
+  cursor: pointer;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+.winecards__face,
+.winecards__back {
+  padding: 1rem;
+  box-shadow: 0 0 12px 0 var(--gold);
+  border-radius: 10px;
+  -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  text-align: center;
+  min-height: 350px;
+  height: auto;
+  border-radius: 10px;
+  color: #fff;
+  text-shadow: 10px 10px 10px var(--background);
+  font-size: 1rem;
+}
+
+.winecards__back{
+  background: var(--background);
+  color: var(--gold);
+}
+
+.winecards__face:after{
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    content: '';
+    display: block;
+    opacity: .5;
+    background-color: var(--background);
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.winecards__item .winecards__face,
+.winecards__item .winecards__back{
+    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.winecards__back{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-shadow: 10px 10px 10px var(--gold);
+  font-size: larger;
+}
+
+.winecards__face-details {
+  -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
+  transform: translateY(-50%) translateZ(60px) scale(0.94);
+top: 50%;
+position: absolute;
+left: 0;
+width: 100%;
+padding: 2rem;
+-webkit-box-sizing: border-box;
+  box-sizing: border-box;
+outline: 1px solid transparent;
+-webkit-perspective: inherit;
+  perspective: inherit;
+z-index: 3;
+}
+
+
+.winecards__item .winecards__back{
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.winecards__item .winecards__face{
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.winecards__item:focus .winecards__back,
+.winecards__item:hover .winecards__back{
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.winecards__item:hover .winecards__face,
+.winecards__item:focus .winecards__face{
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.winecards__face-photo{
+  width: 10em;
+  height: 10em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  margin: 1em;
+}
+
+.winecards__back-name {
+  color: white;
+  margin-bottom: 1em;
+  text-shadow: white;
+}
+
+.cart__btn {
+  background-color: var(--gold);
+  border: var(--gold);
+  color: var(--background);
+  text-shadow: 2px 2px 10px var(--background);
+  box-shadow: 10px 10px 20px var(--background);
+  border-radius: 5px;
+  padding: 1em;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cart__btn:hover,
+.cart__btn:focus{
+  background-color: var(--background);
+  box-shadow: 10px 10px 20px var(--gold);
+  border: 1px solid  var(--gold);
+  color: var(--gold);
+  text-shadow: 2px 2px 10px var(--gold);
+  transition: 0.2s;
+}
+
+
+

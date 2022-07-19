@@ -1,0 +1,113 @@
+:root {
+ --background: black;
+ --red: #d60000;
+ --gold: #fdc854;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  transition: 0.3s;
+
+}
+
+body {
+  width: 100vw;
+  max-height: 100vh;
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'main main main'
+    'footer footer footer';
+  grid-row-gap: 1em;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-image: url('./assets/img/bg1.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+}
+  .header {
+    grid-area: header;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:  1em;
+  }
+
+  .search-container__input {
+    background-color: var(--background);
+    padding: 6px;
+    font-size: 17px;
+    border: 2px solid var(--gold);
+    box-shadow:  0 0 30px var(--gold);
+    border-radius: 5px;
+  }
+
+  .search-container__input:focus{
+    box-shadow: inset  0 0 30px var(--gold);
+    outline: none;
+  }
+
+  .header__cart {
+  position: relative;
+  width: 3em;
+  height: 3em;
+  transition: 0.3s;
+  background: url('./assets/img/cart-gold.svg') no-repeat center;
+  background-size: cover;
+  cursor: pointer;
+  }
+
+  .header__cart:hover {
+    transform: scale(1.1, 1.1);
+    transition: 0.3s;
+  }
+
+  .cart__products {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: block;
+    background-color: var(--red);
+    color: var(--gold);
+    border-radius: 50%;
+    padding: 1px 6px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .main{
+    grid-area: main;
+    height: 100%;
+    max-width: 100%;
+    margin: 0 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    background-attachment: fixed;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    opacity: 0.5;
+    z-index: 99;
+    display: none;
+
+  }
+
+  .overlay.active {
+    display: block;
+  }
