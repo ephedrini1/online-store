@@ -53,6 +53,7 @@ class Filters {
       <div class="sort">
         <h4 class="filter-name">Сортировка</h4>
         <select class="select">
+        <option value=""></option>
         <option value="ByPriceUp">По цене: по возрастанию</option>
         <option value="ByPriceDown">По цене: по убыванию</option>
         </select>

@@ -115,12 +115,12 @@ select {
   position: relative;
   display: flex;
   max-width: 20em;
-  height: 3em;
+  height: 2em;
   border-radius: .25em;
   overflow: hidden;
   background-color: var(--background);
-  padding: 6px;
   font-size: 17px;
+  text-align: center;
   border: 2px solid var(--gold);
   box-shadow:  0 0 30px var(--gold);
   border-radius: 5px;
@@ -132,7 +132,7 @@ select::after {
   top: 0;
   right: 0;
   padding: 1em;
-  background-color: var(--background);
+  background-color: var(--gold);
   transition: .25s all ease;
   pointer-events: none;
 }

@@ -1,5 +1,6 @@
 import {DefaultFilters,  WineDetails } from "../../types/interfaces";
 import { LocalStorage, localStorageKeys } from "../../utils/localstorage";
+import { CartSettings } from "../cart/cart";
 import './filters.css';
 export default class FilterSettings {
   filtered: WineDetails[];
@@ -10,26 +11,27 @@ export default class FilterSettings {
     this.filtered = [];
     this.filterArr = [];
     this.sorted = [];
-    if (localStorage.getItem('filter')) {
-      this.filtersObj = LocalStorage.getLocalStorage(localStorageKeys.filter) || '';
-    };
-    if (localStorage.getItem('filterArr')) {
-      this.filterArr = LocalStorage.getLocalStorage(localStorageKeys.filterArr) || '';
-    };
     this.filtersObj = {
       color: [],
       country: [],
       year: [],
       price: [],
     }
+    if (localStorage.getItem('filter')) {
+      this.filtersObj = LocalStorage.getLocalStorage(localStorageKeys.filter) || '';
+    };
+    if (localStorage.getItem('filterArr')) {
+      this.filterArr = LocalStorage.getLocalStorage(localStorageKeys.filterArr) || '';
+    };
+
   }
   
   filterByCountry(data: WineDetails[]) {
     if (localStorage.getItem('sorted')) {
       data = LocalStorage.getLocalStorage(localStorageKeys.sorted) || data;
     };
-   this.filtered = [];
   
+   this.filtered = [];
   const filters = document.querySelector('#filters');
   this.filtersObj.country = [...filters!.querySelectorAll('#country input:checked')].map(item => (item as HTMLInputElement).value);
   console.log(this.filtersObj.country);
@@ -72,7 +74,7 @@ LocalStorage.setLocalStorage(localStorageKeys.filter, this.filtersObj);
 }
 
 resetAll() {
-   localStorage.clear()
+  localStorage.clear();
 }
 
 sortPriceUp(data: WineDetails[]){

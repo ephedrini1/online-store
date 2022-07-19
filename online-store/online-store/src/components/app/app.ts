@@ -30,11 +30,31 @@ export default class App {
     };
     App.container.append(this.header.render());
     App.container.append(this.main.render());
+    const countryFilters = document.querySelector('.country-filter')
+    const colorFilters = document.querySelector('.color-filter')
     this.winecards.render(data);
     this.cartsettings.render();
-    const colorFilters = document.querySelector('.color-filter')
-    const countryFilters = document.querySelector('.country-filter')
+    if (localStorage.getItem('filter')) {
+      this.filterSettings.filtersObj = LocalStorage.getLocalStorage(localStorageKeys.filter) || '';
+    };
     const filters = document.querySelector('#filters');
+    [...filters!.querySelectorAll('input')].forEach(item => {
+      if(this.filterSettings.filtersObj.country.includes(item.value)){
+        item.checked = true;
+        this.filterSettings.filterByCountry(data);
+        this.winecards.render(this.filterSettings.filtered)
+      }
+      if(this.filterSettings.filtersObj.color.includes(item.value)) {
+        item.checked = true;
+        this.filterSettings.filterByColor(data);
+        this.winecards.render(this.filterSettings.filtered)
+      }
+    })
+    
+
+    
+
+  
     colorFilters!.addEventListener('input', event => {
         this.filterSettings.filterByColor(data);
         this.winecards.render(this.filterSettings.filtered);
@@ -89,8 +109,10 @@ export default class App {
       document
       .querySelector('.cart')!
       .addEventListener('click', event => {
+        this.cartsettings.render();
+
         this.cartsettings.cartOpen();
-            document.body.style.overflow = 'auto';
+        document.body.style.overflow = 'auto';
       })
       document
       .querySelector('.close-popup')!
