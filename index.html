@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wine Shop</title>
 <script defer src="script.js"></script></head>
+
 <body>
 
-  <div class="cart__error">
-    <p class="error__message">Корзина заполнена, перейти в корзину?</p>
-    <button class="error__btn cart__btn" >Ok</button>
-  </div>
   <div class="overlay"></div>
-    <div class="container">
-      <template id="winecardsItemTemp">
-        <div class="winecards__item">
-            <div class="winecards__face">
-                
-                <div class="winecards__face-details">
-                    <h2  class="winecards__face-name"></h2>
-                    <div class="winecards__face-photo"></div>
-                    <h3 class="winecards__face-count"></h3>
-                    <h3 class="winecards__face-price"></h3>
-                </div>
-            </div>
-            <div class="winecards__back">
-              <div class="winecards__back-details">
-                <h2 class="winecards__back-name"></h2>
-                <p class="winecards__back-madeBy"></p>
-                <p class="winecards__back-country"></p>
-                <p class="winecards__back-year"></p>
-                <p class="winecards__back-color"></p>
-                <p class="winecards__back-alcohol"></p>
-                <p class="winecards__back-vol"></p>
-                <button class="cart__add cart__btn">в корзину</button>
-              </div>
-            </div>
+  <div class="container">
+    <template id="winecardsItemTemp">
+      <div class="winecards__item">
+        <div class="winecards__face">
 
+          <div class="winecards__face-details">
+            <h2 class="winecards__face-name"></h2>
+            <div class="winecards__face-photo"></div>
+            <h3 class="winecards__face-count"></h3>
+            <h3 class="winecards__face-price"></h3>
+          </div>
         </div>
+        <div class="winecards__back">
+          <div class="winecards__back-details">
+            <h2 class="winecards__back-name"></h2>
+            <p class="winecards__back-madeBy"></p>
+            <p class="winecards__back-country"></p>
+            <p class="winecards__back-year"></p>
+            <p class="winecards__back-color"></p>
+            <p class="winecards__back-alcohol"></p>
+            <p class="winecards__back-vol"></p>
+            <button class="cart__add cart__btn">в корзину</button>
+          </div>
+        </div>
+
+      </div>
 
     </template>
 
     <template id="cartItemsTemp">
       <div class="cart-item">
         <p class="cart-item__name"></p>
-      
+
         <div class="cart__number">
-          <button class="cart__remove cart__btn" >-</button>
+          <button class="cart__remove cart__btn">-</button>
           <p class="cart__input"></p>
           <button class="cart__add cart__btn">+</button>
         </div>
         <p class="cart-item__price"></p>
       </div>
     </template>
-    
-    </div>
-    
+
+  </div>
+
   <script src="./index.js"></script>
 </body>
+
 </html>
