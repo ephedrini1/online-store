@@ -1,13 +1,13 @@
 export default class Component {
-  protected container: HTMLElement;
+  protected element: HTMLElement;
 
   constructor(tagName: string, className: string = '', id?: string) {
-    this.container = document.createElement(tagName);
-    this.container.className = className;
-    id ? (this.container.id = id) : null;
+    this.element = document.createElement(tagName);
+    this.element.className = className;
+    id ? (this.element.id = id) : null;
   }
 
   render() {
-    return this.container;
+    return this.element;
   }
 }

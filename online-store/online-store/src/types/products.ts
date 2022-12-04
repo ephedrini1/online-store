@@ -1,8 +1,4 @@
-export interface Wine {
-  [key: string]: string | boolean | number;
-}
-
-export interface WineDetails extends Wine {
+export type Wine = {
   name: string;
   madeBy: string;
   country: string;

@@ -1,9 +1,9 @@
 import './winecards.css';
-import { Wine, WineDetails } from '../../types/interfaces'
+import { Wine } from '../../types/products'
 import { LocalStorage, localStorageKeys } from '../../utils/localstorage';
 
 class WineCards {
-  render(data: WineDetails[]) {
+  render(data: Wine[]) {
     if (localStorage.getItem('goods')) {
       data = LocalStorage.getLocalStorage(localStorageKeys.goods) || data;
     };
@@ -13,7 +13,7 @@ class WineCards {
     const wines = data;
     const fragment = document.createDocumentFragment();
     const wineCardTemp = document.querySelector('#winecardsItemTemp') as HTMLTemplateElement;
-    wines.forEach((item : WineDetails, idx : number) => {
+    wines.forEach((item : Wine, idx : number) => {
       const wineCard = wineCardTemp.content.cloneNode(true) as HTMLElement;
 
       (wineCard.querySelector('.winecards__face-photo') as HTMLElement)!.style.backgroundImage = `url(${item.image})`;
