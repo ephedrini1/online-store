@@ -28,8 +28,8 @@
     perspective: 1000px;
 }
 
-.winecards__face,
-.winecards__back {
+.winecards-face,
+.winecards-back {
   padding: 1rem;
   box-shadow: 0 0 12px 0 var(--gold);
   border-radius: 10px;
@@ -49,17 +49,17 @@
   font-size: 1rem;
 }
 
-.inCart .winecards__face,
-.inCart .winecards__back {
+.inCart .winecards-face,
+.inCart .winecards-back {
   box-shadow: 0 0 12px 0 var(--red);
 }
 
-.winecards__back{
+.winecards-back{
   background: var(--background);
   color: var(--gold);
 }
 
-.winecards__face:after{
+.winecards-face:after{
 	position: absolute;
     top: 0;
     left: 0;
@@ -77,8 +77,8 @@
 
 
 
-.winecards__item .winecards__face,
-.winecards__item .winecards__back{
+.winecards__item .winecards-face,
+.winecards__item .winecards-back{
     -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
     -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -86,7 +86,7 @@
     transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.winecards__back{
+.winecards-back{
   position: absolute;
   top: 0;
   left: 0;
@@ -95,7 +95,7 @@
   font-size: larger;
 }
 
-.winecards__face-details {
+.winecards-face__details {
   -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
   transform: translateY(-50%) translateZ(60px) scale(0.94);
 top: 50%;
@@ -112,37 +112,37 @@ z-index: 3;
 }
 
 
-.winecards__item .winecards__back{
+.winecards__item .winecards-back{
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
 }
 
-.winecards__item .winecards__face{
+.winecards__item .winecards-face{
   -webkit-transform: rotateY(0deg);
           transform: rotateY(0deg);
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
 }
 
-.winecards__item:focus .winecards__back,
-.winecards__item:hover .winecards__back{
+.winecards__item:focus .winecards-back,
+.winecards__item:hover .winecards-back{
   -webkit-transform: rotateY(0deg);
           transform: rotateY(0deg);
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
 }
 
-.winecards__item:hover .winecards__face,
-.winecards__item:focus .winecards__face{
+.winecards__item:hover .winecards-face,
+.winecards__item:focus .winecards-face{
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg);
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
 }
 
-.winecards__face-photo{
+.winecards-face__photo{
   width: 10em;
   height: 10em;
   background-size: contain;
@@ -151,7 +151,7 @@ z-index: 3;
   margin: 1em;
 }
 
-.winecards__back-name {
+.winecards-back__name {
   color: white;
   margin-bottom: 1em;
   text-shadow: white;
