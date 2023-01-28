@@ -14,7 +14,7 @@
 
 export default class Component {
   node: HTMLElement;
-  constructor(parentNode: HTMLElement, tagName = '', className = '', content = '') {
+  constructor(parentNode?: HTMLElement, tagName = 'div', className = '', content = '') {
     const element = document.createElement(tagName);
     element.className = className;
     element.textContent = content;
