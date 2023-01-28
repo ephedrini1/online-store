@@ -1,0 +1,19 @@
+:root {
+  --background: black;
+  --red: #d60000;
+  --gold: #fdc854;
+}
+
+.search-container__input {
+  background-color: var(--background);
+  padding: 6px;
+  font-size: 17px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 30px var(--gold);
+  border-radius: 5px;
+}
+
+.search-container__input:focus {
+  box-shadow: inset 0 0 30px var(--gold);
+  outline: none;
+}
