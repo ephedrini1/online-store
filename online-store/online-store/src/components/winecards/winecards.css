@@ -14,8 +14,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  grid-column-gap: 3em;
-  grid-row-gap: 3em;
+  align-content: center;
+  gap: 3em;
 }
 
 .winecards__item {
@@ -47,11 +47,6 @@
   color: #fff;
   text-shadow: 10px 10px 10px var(--background);
   font-size: 1rem;
-}
-
-.inCart .winecards-face,
-.inCart .winecards-back {
-  box-shadow: 0 0 12px 0 var(--red);
 }
 
 .winecards-back{
