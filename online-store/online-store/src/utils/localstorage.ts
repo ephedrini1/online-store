@@ -1,4 +1,4 @@
-import { WineDetails } from "../types/interfaces";
+import { Wine } from "../types/products";
 
 const enum localStorageKeys {
   filter = 'filter',
