@@ -1,5 +1,6 @@
+ import './search.css'
  import { Wine } from "../../types/products";
-import Component from "../../utils/component";
+ import Component from "../../utils/component";
  import WineCards from "../winecards/winecards";
  import { LocalStorage, localStorageKeys } from "../../utils/localstorage";
  import { goods } from "../../constats/goods";
@@ -9,6 +10,9 @@ import Component from "../../utils/component";
    searchInput: HTMLInputElement;
    input: Component;
    winecards : WineCards;
+   searchPopup: Component;
+   searchPopupContainer: Component;
+
    constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'search-container');
      this.input = new Component(this.node, 'input', 'search-container__input');
@@ -20,8 +24,9 @@ import Component from "../../utils/component";
      this.searchData = LocalStorage.getLocalStorage(localStorageKeys.goods) ||
      LocalStorage.getLocalStorage(localStorageKeys.sorted) ||
      goods;
-     this.searchInput.onchange = () => this.search(this.searchData)
      this.winecards = new WineCards();
+     this.searchPopup= new Component();
+     this.searchPopupContainer = new Component(this.searchPopup.node, 'div', 'search-popup__container');
    }
 
    search(data: Wine[]) {
@@ -38,13 +43,21 @@ import Component from "../../utils/component";
      console.log(this.searchData)
 
     if (this.searchData.length === 0) {
-      const errorDiv = new Component(document.body, 'div', 'cart__error');
-      errorDiv.node.innerHTML = `
+      this.searchInput.readOnly = true;
+      this.searchPopupContainer = new Component(document.body, 'div', 'cart__error');
+      this.searchPopupContainer.node.innerHTML = `
         <p class="error__message">По данному запросу ничего не найдено</p>
         <button class="error__btn search__btn" >Ok</button>`
       document.querySelector('.overlay')!.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
+  }
 
+  popupClose() {
+    this.searchPopupContainer.destroy();
+    document.querySelector('.overlay')!.classList.remove('active');
+    document.body.style.overflow = 'scroll';
+    this.searchInput.readOnly = false;
+    this.searchInput.value = ''
   }
  }

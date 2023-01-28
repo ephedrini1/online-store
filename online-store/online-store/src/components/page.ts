@@ -3,17 +3,20 @@ import Header from "./header/header";
 import WineCards from "./winecards/winecards";
 import { Wine } from "../types/products";
 import { goods } from "../constats/goods";
+import Footer from "./footer/footer";
 
 export default class Page extends Component {
   header: Header;
   winecards: WineCards;
   totalItems: number;
+  footer: Footer;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div');
     this.header = new Header(this.node);
     this.winecards = new WineCards(this.node);
     this.setEventListener();
     this.totalItems = this.header.cart.cartList.reduce((acc: number, el: Wine) => acc + el.inCart, 0) || 0;
+    this.footer = new Footer(this.node);
   }
 
   setEventListener() {
@@ -42,6 +45,10 @@ export default class Page extends Component {
         }
         if ((<HTMLElement>event.target).classList.contains('close-popup')) {
           this.header.cart.cartClose();
+        }
+         if ((<HTMLElement>event.target).classList.contains('error__btn')) {
+          this.header.search.popupClose();
+          this.winecards.rerender();
         }
       }
       this.header.cart.node.onclick = () => {
