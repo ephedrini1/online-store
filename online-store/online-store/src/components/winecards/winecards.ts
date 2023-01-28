@@ -9,7 +9,7 @@ class WineCards extends Component {
   wineContainer: Component;
   data: Wine[];
   wineCard?: Card;
-  constructor(parentNode: HTMLElement) {
+  constructor(parentNode?: HTMLElement) {
     super(parentNode, 'div', 'winecards');
     this.wineContainer = new Component();
     this.data = LocalStorage.getLocalStorage(localStorageKeys.goods) ||
@@ -18,8 +18,8 @@ class WineCards extends Component {
     this.renderCards();
   }
 
-  renderCards() {
-    this.data = LocalStorage.getLocalStorage(localStorageKeys.goods) ||
+  renderCards(data?: Wine[]) {
+    this.data = data || LocalStorage.getLocalStorage(localStorageKeys.goods) ||
     LocalStorage.getLocalStorage(localStorageKeys.sorted) ||
     goods;
     this.wineContainer = new Component(this.node, 'div', 'winecards-container');
@@ -31,9 +31,9 @@ class WineCards extends Component {
     })
   }
 
-  rerender() {
+  rerender(data? : Wine[]) {
     this.wineContainer.destroy();
-    this.renderCards();
+    this.renderCards(data);
   }
 }
 
