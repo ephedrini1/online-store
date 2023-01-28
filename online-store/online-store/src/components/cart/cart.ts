@@ -1,9 +1,7 @@
 import './cart.css'
 import { Wine } from '../../types/products';
 import { LocalStorage, localStorageKeys } from '../../utils/localstorage';
-import WineCards from '../winecards/winecards'
 import Component from '../../utils/component';
-import Winecards from '../../html-components/winecards/winecards';
 import { goods } from '../../constats/goods';
 
 export class Cart extends Component {
