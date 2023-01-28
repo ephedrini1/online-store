@@ -82,12 +82,8 @@
   background: var(--background);
   color: var(--gold);
   z-index: 100;
-  display: none;
 }
 
-.cart__error.active {
-  display: flex;
-}
 
 
 
