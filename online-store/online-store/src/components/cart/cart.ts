@@ -1,125 +1,114 @@
 import './cart.css'
-import {  WineDetails } from '../../types/interfaces';
+import { Wine } from '../../types/products';
 import { LocalStorage, localStorageKeys } from '../../utils/localstorage';
 import WineCards from '../winecards/winecards'
-export class CartSettings {
-  cart: WineDetails[];
+import Component from '../../utils/component';
+import Winecards from '../../html-components/winecards/winecards';
+import { goods } from '../../constats/goods';
+
+export class Cart extends Component {
+  cartList: Wine[];
+  data: Wine[];
   totalItems: number;
-  constructor() {
-    this.cart = [];
-    this.totalItems = this.totalItems = LocalStorage.getLocalStorage(localStorageKeys.totalItemsInCart) || 0;
+  totalLabel: Component;
+  total: Component;
+  notification: Component;
+  cartPopup: Component;
+  cartPopupContainer: Component;
+  constructor(parentNode: HTMLElement) {
+
+    super(parentNode, 'div', 'header__cart cart');
+    this.notification = new Component(this.node, 'a', 'cart__notification');
+    this.cartList = LocalStorage.getLocalStorage(localStorageKeys.cart) || [];
+    this.totalItems = this.cartList.reduce((acc: number, el: Wine) => acc + el.inCart, 0) || 0;
+    this.data = LocalStorage.getLocalStorage(localStorageKeys.goods) || goods;
+    this.totalLabel = new Component(this.node, 'span', 'cart__products', `${this.totalItems}`)
+    this.cartPopup= new Component(document.body, 'div', 'cart-popup');
+    this.cartPopupContainer = new Component(this.cartPopup.node, 'div', 'cart-popup__container');
+    this.total = new Component(this.cartPopup.node, 'p', 'cart__total');
+
   }
 
-  cartAdd(data: WineDetails[], articul: number) {
-         console.log(articul)
-        if (localStorage.getItem('cart')) {
-          this.cart = LocalStorage.getLocalStorage(localStorageKeys.cart) || '';
-        };
-        if (localStorage.getItem('goods')) {
-          data = LocalStorage.getLocalStorage(localStorageKeys.goods) || data;
-        };
-      console.log(this.cart)
-        console.log(articul);
-        const index = this.cart.findIndex(elem => elem.id === articul);
-        console.log(index);
-        if(index === -1) {
-          data[articul]['count']--;
-          data[articul]['inCart']++;
-          this.cart.push(data[articul]);
-          this.totalItems++;
-          console.log('data count ',data[articul]['count']);
-          console.log('data inCart ' ,data[articul]['inCart']);
-          console.log(this.cart)
-        }else{
-          this.totalItems++;
-          this.cart[index]['inCart']++;
-          data[articul]['count']--;
-          data[articul]['inCart']++;
-          this.cart[index]['count']--;
-          console.log('cart Count ',this.cart[index]['count'])
-          console.log('data count ',data[articul]['count'])
-          console.log('cart inCart ',this.cart[index]['inCart'])
-          console.log('data inCart ',data[articul]['inCart'])
-        } 
-        if(data[articul]['count'] === 0) {
-          const winecards = new WineCards();
-          winecards.render(data);
-        }
-        LocalStorage.setLocalStorage(localStorageKeys.cart, this.cart)
-        LocalStorage.setLocalStorage(localStorageKeys.goods, data)
-        LocalStorage.setLocalStorage(localStorageKeys.totalItemsInCart, this.totalItems)
-      }
-      cartRemove(data: WineDetails[], articul: number) {
-        if (localStorage.getItem('cart')) {
-          this.cart = LocalStorage.getLocalStorage(localStorageKeys.cart) || '';
-        };
-        if (localStorage.getItem('goods')) {
-          data = LocalStorage.getLocalStorage(localStorageKeys.goods) || data;
-        };
-        console.log(articul);
-        const index = this.cart.findIndex(elem => elem.id === articul);
-        if(index >= 0) {
-          this.totalItems--;
-          this.cart[index]['inCart']--;
-          data[articul]['count']++;
-          data[articul]['inCart']--;
-          this.cart[index]['count']++;
-          console.log('cart Count ',this.cart[index]['count'])
-          console.log('data count ',data[articul]['count'])
-          console.log('cart inCart ',this.cart[index]['inCart'])
-          console.log('data inCart ',data[articul]['inCart'])
-        
-        } 
-        LocalStorage.setLocalStorage(localStorageKeys.cart, this.cart)
-        LocalStorage.setLocalStorage(localStorageKeys.goods, data)
-        LocalStorage.setLocalStorage(localStorageKeys.totalItemsInCart, this.totalItems)
-      
-      }
-
-      render() {
-        this.cart = LocalStorage.getLocalStorage(localStorageKeys.cart) || [];
-        const fragment = document.createDocumentFragment();
-        const cartItemsTemp = document.querySelector('#cartItemsTemp') as HTMLTemplateElement;
-        const badge = document.querySelector('.cart__products');
-        const popup = document.querySelector('.cart-popup');
-        let totalSum = 0;
-        this.cart.forEach(item => {
-          const cartItem = cartItemsTemp.content.cloneNode(true) as HTMLElement;
-          (cartItem.querySelector('.cart-item__name'))!.textContent = item.name;
-          (cartItem.querySelector('.cart__input'))!.textContent = item.inCart.toString();
-          const itemsPrice = +item.price * item.inCart;
-          totalSum += itemsPrice;
-          (cartItem.querySelector('.cart-item__price'))!.textContent = `${itemsPrice}`;
-          (cartItem.querySelector('.cart__add'))!.setAttribute('data-articul', `${item.id}`);
-            if(item.count === 0) {
-              (cartItem.querySelector('.cart__add') as HTMLElement)!.style.pointerEvents = 'none';
-              (cartItem.querySelector('.cart__add') as HTMLElement)!.style.opacity = '0.5';
-            }
-          (cartItem.querySelector('.cart__remove'))!.setAttribute('data-articul', `${item.id}`);
-
-            if(item.inCart === 0) {
-              (cartItem.querySelector('.cart__remove') as HTMLElement)!.style.pointerEvents = 'none';
-              (cartItem.querySelector('.cart__remove') as HTMLElement)!.style.opacity = '0.5';
-            }
-          document.querySelector('.cart__total')!.textContent = `${totalSum}`
-        
-          fragment.append(cartItem);
-        })  
-        document.querySelector('.cart__products')!.textContent = `${this.totalItems}`
+  cartAdd(articul: number) {
+    const index = this.cartList.findIndex(elem => elem.id === articul);
   
-        document.querySelector('.cart-popup__container')!.innerHTML = '';
-        document.querySelector('.cart-popup__container')!.appendChild(fragment);
-      }
-      cartOpen() {
-        document.querySelector('.cart-popup')!.classList.add('active');
-        document.querySelector('.overlay')!.classList.add('active');
-      }
-      cartClose() {
-        document.querySelector('.cart-popup')!.classList.remove('active');
-        document.querySelector('.overlay')!.classList.remove('active');
-      }
+    if(index === -1) {
+      this.cartList.push(this.data[articul]);
+      this.data[articul]['inCart']++;
+      this.data[articul]['count']--;
+    }else{
+      this.data[articul]['inCart']++;
+      this.data[articul]['count']--;
+      this.cartList[index]['inCart']++;
+      this.cartList[index]['count']--;
     }
-  
+    LocalStorage.setLocalStorage(localStorageKeys.cart, this.cartList)
+    LocalStorage.setLocalStorage(localStorageKeys.goods, this.data)
+  }
+
+        cartRemove(articul: number) {
+          this.cartList = LocalStorage.getLocalStorage(localStorageKeys.cart) || [];
+          this.data = LocalStorage.getLocalStorage(localStorageKeys.goods) || goods;
+          const index = this.cartList.findIndex(elem => elem.id === articul);
+          if(index >= 0 && this.cartList[index]['inCart'] > 0) {
+            this.cartList[index]['inCart']--;
+            this.data[articul]['count']++;
+            this.data[articul]['inCart']--;
+            this.cartList[index]['count']++;
+          } 
+          LocalStorage.setLocalStorage(localStorageKeys.cart, this.cartList)
+          LocalStorage.setLocalStorage(localStorageKeys.goods, this.data)
+         }
+
+  render() {
+     this.cartList = LocalStorage.getLocalStorage(localStorageKeys.cart) || [];
+     let totalSum = 0;
+     this.cartPopupContainer.node.innerHTML = '';
+     this.total.node.innerHTML = '';
+     const closePopup = new Component(this.cartPopup.node, 'span', 'close-popup', 'X');
+
+     if(this.cartList.length === 0) this.cartPopupContainer.node.textContent = 'Корзина пуста'
+     
+     this.cartList.forEach(item => {
+       const cartItem = new Component(this.cartPopupContainer.node, 'div', 'cart-item');
+       cartItem.node.setAttribute('id', `${item.id}`);
+       const cartItemName = new Component(cartItem.node, 'p', 'cart-item__name', `${item.name}`);
+       const cartNumber = new Component(cartItem.node, 'div', 'cart__number');
+       const removeBtn = new Component(cartNumber.node, 'button', 'cart__remove cart__btn', '-');
+       removeBtn.node.setAttribute('data-articul', `${item.id}`);
+       const cartInput = new Component(cartNumber.node, 'p', 'cart__input', `${item.inCart.toString()}`);
+       const addBtn = new Component(cartNumber.node, 'button', 'cart__add cart__btn', '+');
+       addBtn.node.setAttribute('data-articul', `${item.id}`);
+       const itemsPrice = +item.price * item.inCart;
+       totalSum += itemsPrice;
+       this.total.node.textContent = `${totalSum}`
+       const cartItemPrice = new Component(cartItem.node, 'p', 'cart-item__price', `${itemsPrice}`);
+     
+        if(item.count === 0) {
+          addBtn.node.style.pointerEvents = 'none';
+          addBtn.node.style.opacity = '0.5';
+        }
+
+        if(item.inCart === 0) {
+          removeBtn.node.style.pointerEvents = 'none';
+          removeBtn.node.style.opacity = '0.5';
+          this.cartList = this.cartList.filter(el => el.inCart !== 0);
+          LocalStorage.setLocalStorage(localStorageKeys.cart, this.cartList)
+          
+        }
+     })  
+   }
+
+        cartOpen() {
+          this.cartPopup.node.classList.add('active');
+          this.render();
+        }
+
+        cartClose() {
+          this.cartPopup.node.classList.remove('active');
+        }
+}
+
 
 
 
