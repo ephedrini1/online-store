@@ -9,7 +9,7 @@ import './global.css';
 // const cartsettings = new CartSettings();
 // cartsettings.addToCart(goods);
 
-import App from './components/app/app';
+import App from './app';
 import './global.css';
 
 const app = new App();
