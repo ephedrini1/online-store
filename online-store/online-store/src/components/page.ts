@@ -4,15 +4,19 @@ import WineCards from "./winecards/winecards";
 import { Wine } from "../types/products";
 import { goods } from "../constats/goods";
 import Footer from "./footer/footer";
+import { Filters } from "./filters/filters";
 
 export default class Page extends Component {
   header: Header;
+  filters: Filters;
   winecards: WineCards;
   totalItems: number;
   footer: Footer;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div');
     this.header = new Header(this.node);
+    this.filters = new Filters(this.node);
     this.winecards = new WineCards(this.node);
     this.setEventListener();
     this.totalItems = this.header.cart.cartList.reduce((acc: number, el: Wine) => acc + el.inCart, 0) || 0;
@@ -55,9 +59,8 @@ export default class Page extends Component {
         this.header.cart.cartOpen();
       }
     })
-    this.header.search.searchInput.addEventListener('input', event => {
+    this.header.search.searchInput.addEventListener('input', oninput => {
       this.header.search.search(goods);
-      console.log(this.header.search.searchData)
       this.winecards.rerender(this.header.search.searchData)
     })
   }
