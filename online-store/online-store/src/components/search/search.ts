@@ -1,48 +1,45 @@
- import './search.css'
- import { Wine } from "../../types/products";
- import Component from "../../utils/component";
- import WineCards from "../winecards/winecards";
- import { LocalStorage, localStorageKeys } from "../../utils/localstorage";
- import { goods } from "../../constats/goods";
+import './search.css'
+import { Wine } from "../../types/products";
+import Component from "../../utils/component";
+import WineCards from "../winecards/winecards";
+import { LocalStorage, localStorageKeys } from "../../utils/localstorage";
+import { goods } from "../../constats/goods";
 
- export default class Search extends Component{
-   searchData: Wine[];
-   searchInput: HTMLInputElement;
-   input: Component;
-   winecards : WineCards;
-   searchPopup: Component;
-   searchPopupContainer: Component;
-
-   constructor(parentNode: HTMLElement) {
+export default class Search extends Component {
+  searchData: Wine[];
+  searchInput: HTMLInputElement;
+  input: Component;
+  winecards: WineCards;
+  searchPopup: Component;
+  searchPopupContainer: Component;
+  constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'search-container');
-     this.input = new Component(this.node, 'input', 'search-container__input');
-     this.searchInput = this.input.node as HTMLInputElement;
-     this.searchInput.autocomplete = 'off';
-     this.searchInput.placeholder = 'Поиск...';
-     this.searchInput.type = 'search';
-     this.searchInput.autofocus = true;
-     this.searchData = LocalStorage.getLocalStorage(localStorageKeys.goods) ||
-     LocalStorage.getLocalStorage(localStorageKeys.sorted) ||
-     goods;
-     this.winecards = new WineCards();
-     this.searchPopup= new Component();
-     this.searchPopupContainer = new Component(this.searchPopup.node, 'div', 'search-popup__container');
-   }
+    this.input = new Component(this.node, 'input', 'search-container__input');
+    this.searchInput = this.input.node as HTMLInputElement;
+    this.searchInput.autocomplete = 'off';
+    this.searchInput.placeholder = 'Поиск...';
+    this.searchInput.type = 'search';
+    this.searchInput.autofocus = true;
+    this.searchData = LocalStorage.getLocalStorage(localStorageKeys.goods) ||
+      LocalStorage.getLocalStorage(localStorageKeys.sorted) ||
+      goods;
+    this.winecards = new WineCards();
+    this.searchPopup = new Component();
+    this.searchPopupContainer = new Component(this.searchPopup.node, 'div', 'search-popup__container');
+  }
 
-   search(data: Wine[]) {
-     let value = this.searchInput.value;
-     value = value.trim().toLowerCase();
-     console.log(value)
-     this.searchData = data;
-    data.forEach((item, index) => {
-        if(item.name.toLowerCase().search(value) == -1){
-          this.searchData.splice(index, 1)
+  search(data: Wine[]) {
+    let value = this.searchInput.value.trim();
+    value = value.toLowerCase();
+     this.searchData = [];
+    if (value != '') {
+      data.forEach((item) => {
+        if (item.name.toLowerCase().startsWith(value)) {
+          this.searchData.push(item)
         }
-    })
-
-     console.log(this.searchData)
-
-    if (this.searchData.length === 0) {
+      })
+      
+     if (this.searchData.length === 0) {
       this.searchInput.readOnly = true;
       this.searchPopupContainer = new Component(document.body, 'div', 'cart__error');
       this.searchPopupContainer.node.innerHTML = `
@@ -50,6 +47,9 @@
         <button class="error__btn search__btn" >Ok</button>`
       document.querySelector('.overlay')!.classList.add('active');
       document.body.style.overflow = 'hidden';
+      }
+    } else {
+      this.searchData = data;
     }
   }
 
@@ -60,4 +60,4 @@
     this.searchInput.readOnly = false;
     this.searchInput.value = ''
   }
- }
+}
