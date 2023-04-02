@@ -1,2 +1,1 @@
-# ephedrini1-JSFE2022Q1
-Private repository for @ephedrini1
+https://ephedrini-online-store.netlify.app/
