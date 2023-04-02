@@ -5,6 +5,7 @@ import { Wine } from "../types/products";
 import { goods } from "../constats/goods";
 import Footer from "./footer/footer";
 import { Filters } from "./filters/filters";
+import { LocalStorage, localStorageKeys } from "../utils/localstorage";
 
 export default class Page extends Component {
   header: Header;
@@ -18,12 +19,12 @@ export default class Page extends Component {
     this.header = new Header(this.node);
     this.filters = new Filters(this.node);
     this.winecards = new WineCards(this.node);
-    this.setEventListener();
+    this.setEventListeners();
     this.totalItems = this.header.cart.cartList.reduce((acc: number, el: Wine) => acc + el.inCart, 0) || 0;
     this.footer = new Footer(this.node);
   }
 
-  setEventListener() {
+  setEventListeners() {
     let articul: number;
     document.addEventListener('click', event => {
       if (event) {
@@ -50,7 +51,7 @@ export default class Page extends Component {
         if ((<HTMLElement>event.target).classList.contains('close-popup')) {
           this.header.cart.cartClose();
         }
-         if ((<HTMLElement>event.target).classList.contains('error__btn')) {
+        if ((<HTMLElement>event.target).classList.contains('error__btn')) {
           this.header.search.popupClose();
           this.winecards.rerender();
         }
@@ -59,9 +60,30 @@ export default class Page extends Component {
         this.header.cart.cartOpen();
       }
     })
+    
     this.header.search.searchInput.addEventListener('input', oninput => {
       this.header.search.search(goods);
       this.winecards.rerender(this.header.search.searchData)
+    })
+
+    this.filters.select.node.addEventListener('change', onchange => {
+      let select = this.filters.select.node as HTMLSelectElement;
+      let item = select.value;
+      console.log(item)
+      if (item === 'ByPriceUp') {
+        this.filters.sortPriceUp(goods);
+        this.winecards.rerender(LocalStorage.getLocalStorage(localStorageKeys.sorted))
+
+      }
+       if (item === 'ByPriceDown') {
+        this.filters.sortPriceDown();
+        this.winecards.rerender(LocalStorage.getLocalStorage(localStorageKeys.sorted))
+      }
+    })
+
+    this.filters.clearHistory.node.addEventListener('click', onclick => {
+      this.filters.resetAll();
+      this.winecards.rerender(goods);
     })
   }
 }
