@@ -1,16 +1,16 @@
-import './footer.css'
+import './footer.css';
 import Component from '../../utils/component';
 
 export default class Footer extends Component {
-  private footerContainer: Component;
+    private footerContainer: Component;
 
-  constructor(parentNode: HTMLElement) {
-    super(document.body, 'footer', 'footer');
-    this.footerContainer = new Component(this.node, 'div', 'footer-container');
-    this.renderContainer();
-  }
-  renderContainer() {
-    this.footerContainer.node.innerHTML = `
+    constructor(parentNode: HTMLElement) {
+        super(document.body, 'footer', 'footer');
+        this.footerContainer = new Component(this.node, 'div', 'footer-container');
+        this.renderContainer();
+    }
+    renderContainer() {
+        this.footerContainer.node.innerHTML = `
       <div class="container">
           <div class="footer_wrapper">
               <a class="footer_link" href="https://github.com/ephedrini1/" target="_blank"> @ephedrini1</a>
@@ -20,5 +20,5 @@ export default class Footer extends Component {
           </div>
       </div>
 `;
-  }
+    }
 }

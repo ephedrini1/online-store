@@ -13,18 +13,18 @@
 // }
 
 export default class Component {
-  node: HTMLElement;
-  constructor(parentNode?: HTMLElement, tagName = 'div', className = '', content = '') {
-    const element = document.createElement(tagName);
-    element.className = className;
-    element.textContent = content;
-    if (parentNode) {
-      parentNode.append(element);
+    node: HTMLElement;
+    constructor(parentNode?: HTMLElement, tagName = 'div', className = '', content = '') {
+        const element = document.createElement(tagName);
+        element.className = className;
+        element.textContent = content;
+        if (parentNode) {
+            parentNode.append(element);
+        }
+        this.node = element;
     }
-    this.node = element;
-  }
 
-  destroy() {
-    this.node.remove();
-  }
+    destroy() {
+        this.node.remove();
+    }
 }

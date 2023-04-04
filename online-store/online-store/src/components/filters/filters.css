@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 .filters-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr ;
+  grid-template-areas: " filters-container select"
+                       "   button button";
   width: 80vw;
   margin: 1em auto;
   background-color: rgba(0,0,0,0.5);
@@ -17,13 +22,10 @@
 }
 
 .filters-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr ;
-  grid-template-areas: " select  filter-color filter-country"
-                       "   button      .         button";
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
-
 .filter-name {
   margin-bottom: 10px;
 }
@@ -40,12 +42,12 @@
 
 .reset {
   grid-area: 'button';
-  margin-right: auto;
+  margin: auto;
 }
 
 .reset-filters {
   grid-area: 'button';
-  margin-left: auto;
+  margin: auto;
 }
 input[type="checkbox"] {
   border-radius: 0;

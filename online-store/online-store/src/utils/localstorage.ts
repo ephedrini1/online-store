@@ -1,29 +1,28 @@
-import { Wine } from "../types/products";
-
 const enum localStorageKeys {
-  filter = 'filter',
+  filters = 'filters',
   cart = 'cart',
-  goods  = 'goods',
+  goods = 'goods',
   totalItemsInCart = 'totalItemsInCart',
-  filterArr = 'filterArr',
+  filtered = 'filtered',
   sorted = 'sorted',
+  onPage = 'onPage',
 }
 
 class LocalStorage {
   
     static setLocalStorage(
-      dataKey: localStorageKeys,
-      data: object | [] | string | number
+        dataKey: localStorageKeys,
+        data: object | [] | string | number
     ): void {
-      localStorage.setItem(dataKey, JSON.stringify(data));
+        localStorage.setItem(dataKey, JSON.stringify(data));
     }
   
-    static getLocalStorage(data: localStorageKeys): any {
-      if (localStorage.getItem(data)) {
-        return JSON.parse(String(localStorage.getItem(data)));
-      }
-      return "";
+    static getLocalStorage(data: localStorageKeys){
+        if (localStorage.getItem(data)) {
+            return JSON.parse(String(localStorage.getItem(data)));
+        }
+        return "";
     }
-  }
+}
   
-  export { LocalStorage, localStorageKeys };
+export { LocalStorage, localStorageKeys };
