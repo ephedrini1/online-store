@@ -2,7 +2,7 @@ import './cart.css'
 import { Wine } from '../../types/products';
 import { LocalStorage, localStorageKeys } from '../../utils/localstorage';
 import Component from '../../utils/component';
-import { goods } from '../../constats/goods';
+import { goods } from '../../constants/goods';
 
 export class Cart extends Component {
   cartList: Wine[];
@@ -42,6 +42,7 @@ export class Cart extends Component {
     }
     LocalStorage.setLocalStorage(localStorageKeys.cart, this.cartList)
     LocalStorage.setLocalStorage(localStorageKeys.goods, this.data)
+    LocalStorage.setLocalStorage(localStorageKeys.onPage, this.data)
   }
 
   cartRemove(articul: number) {
@@ -56,6 +57,7 @@ export class Cart extends Component {
     }
     LocalStorage.setLocalStorage(localStorageKeys.cart, this.cartList)
     LocalStorage.setLocalStorage(localStorageKeys.goods, this.data)
+    LocalStorage.setLocalStorage(localStorageKeys.onPage, this.data)
   }
 
   render() {
