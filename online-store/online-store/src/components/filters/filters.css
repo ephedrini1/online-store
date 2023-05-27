@@ -1,20 +1,14 @@
-:root {
-  --background: black;
-  --red: #d60000;
-  --gold: #fdc854;
- }
-*{
+* {
   box-sizing: border-box;
 }
 .filters-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr ;
-  grid-template-areas: " filters-container select"
-                       "   button button";
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1em;
   width: 80vw;
   margin: 1em auto;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 1em;
   box-shadow: 0 0 20px var(--gold);
   color: var(--gold);
@@ -30,32 +24,40 @@
   margin-bottom: 10px;
 }
 .country-filter {
-  grid-area: 'filter-country';
+  grid-area: "filter-country";
 }
 .color-filter {
-  grid-area: 'filter-color';
+  grid-area: "filter-color";
 }
 
 .sort {
-  grid-area: 'select';
+  grid-area: "select";
+}
+
+.btns-panel {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: 1em;
+  padding: 1em;
 }
 
 .reset {
-  grid-area: 'button';
+  grid-area: "button";
   margin: auto;
 }
 
 .reset-filters {
-  grid-area: 'button';
+  grid-area: "button";
   margin: auto;
 }
 input[type="checkbox"] {
   border-radius: 0;
--webkit-appearence:none;
-outline: none;
+  -webkit-appearence: none;
+  outline: none;
 }
 
-.checkbox{
+.checkbox {
   margin-bottom: 1.5em;
   padding-left: 2.5em;
   position: relative;
@@ -63,14 +65,14 @@ outline: none;
 
 input[type="checkbox"],
 .checkbox label::before {
-cursor: pointer;
-height: 24px;
-left: 0;
-position: absolute;
-width: 24px;
+  cursor: pointer;
+  height: 24px;
+  left: 0;
+  position: absolute;
+  width: 24px;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   display: inline-block;
   opacity: 0;
   vertical-align: middle;
@@ -80,13 +82,13 @@ input[type="checkbox"]{
   border: 2px solid var(--gold);
   border-radius: 4px;
   color: var(--gold);
-  content: '';
+  content: "";
   font-size: 1.2em;
 }
 
 .checkbox input[type="checkbox"]:checked + label::before {
   border-color: var(--gold);
-  content: '\2714';
+  content: "\2714";
 }
 label {
   display: block;
@@ -107,7 +109,7 @@ select {
   max-width: 20em;
   border: 2px solid var(--gold);
   border-radius: 10px;
-  box-shadow:  0 0 30px var(--gold);
+  box-shadow: 0 0 30px var(--gold);
 }
 /* Remove IE arrow */
 select::-ms-expand {
@@ -119,24 +121,24 @@ select {
   display: flex;
   max-width: 20em;
   height: 2em;
-  border-radius: .25em;
+  border-radius: 0.25em;
   overflow: hidden;
   background-color: var(--background);
   font-size: 17px;
   text-align: center;
   border: 2px solid var(--gold);
-  box-shadow:  0 0 30px var(--gold);
+  box-shadow: 0 0 30px var(--gold);
   border-radius: 5px;
 }
 /* Arrow */
 select::after {
-  content: '\25BC';
+  content: "\25BC";
   position: absolute;
   top: 0;
   right: 0;
   padding: 1em;
   background-color: var(--gold);
-  transition: .25s all ease;
+  transition: 0.25s all ease;
   pointer-events: none;
 }
 /* Transition */
@@ -154,5 +156,3 @@ select:hover::after {
 }
 
 /* Other styles*/
-
-
